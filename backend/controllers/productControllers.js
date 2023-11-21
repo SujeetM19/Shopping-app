@@ -23,21 +23,21 @@ exports.newProduct = async(req, res, next) => {
 //get all products => /api/v1/products?keyword=apple
 exports.getProducts = async (req, res, next) =>{
     // console.log(req.query);
-    const resPerPage = 4;
+    const resPerPage = 8; 
 
-    const productCount = await Products.countDocuments();
+    const productsCount = await Products.countDocuments();
     const apiFeatures = new APIFeatures(Products.find(), req.query)
                         .search()
                         .filter()
                         .pagination(resPerPage)
 
-    const allProducts = await apiFeatures.query;
+    const products = await apiFeatures.query;
 
     res.status(200).json({
         success:true,
-        numberOfProducts: allProducts.length,
-        productCount,
-        allProducts
+        products,
+        productsCount,
+        resPerPage
     })
 }
 

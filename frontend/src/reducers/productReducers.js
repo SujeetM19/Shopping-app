@@ -3,9 +3,9 @@ import {
     ALL_PRODUCTS_SUCCESS,
     ALL_PRODUCTS_FAIL,
     CLEAR_ERRORS,
-    PRODUCT_DETAIL_REQUEST,
-    PRODUCT_DETAIL_SUCCESS,
-    PRODUCT_DETAIL_FAIL,
+    PRODUCT_DETAILS_REQUEST,
+    PRODUCT_DETAILS_SUCCESS,
+    PRODUCT_DETAILS_FAIL,
   } from '../constants/productConstants';
   
   export const productsReducer = (state = { products: [] }, action) => {
@@ -21,6 +21,7 @@ import {
           loading: false,
           products: action.payload.products,
           productsCount: action.payload.productsCount,
+          resPerPage: action.payload.resPerPage
         };
   
       case ALL_PRODUCTS_FAIL:
@@ -39,24 +40,25 @@ import {
     }
   };
   
-  const INITIAL_STATE = {
-    product: {}, // Set initial state as an empty object or with appropriate default values
-  };
   
-  export const productDetailReducer = (state = INITIAL_STATE, action) => {
+  export const productDetailReducer = (state = { product: {}, loading: false, error: null }, action) => {
+
+    console.log('Action:', action.type);
+    console.log('Payload:', action.payload);
+
     switch (action.type) {
-      case PRODUCT_DETAIL_REQUEST:
+      case PRODUCT_DETAILS_REQUEST:
         return {
           ...state,
           loading: true,
         };
-      case PRODUCT_DETAIL_SUCCESS:
+      case PRODUCT_DETAILS_SUCCESS:
         return {
           loading: false,
           product: action.payload,
         };
   
-      case PRODUCT_DETAIL_FAIL:
+      case PRODUCT_DETAILS_FAIL:
         return {
           ...state,
           error: action.payload,
