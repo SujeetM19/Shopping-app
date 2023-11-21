@@ -7,6 +7,7 @@ import { getProducts } from "../actions/productActions";
 import Product from "./product/Product";
 import Loader from "./layout/Loader";
 import { useAlert } from "react-alert";
+import { useParams } from "react-router-dom";
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,14 +18,16 @@ const Home = () => {
   );
 
 
+  const {keyword} = useParams();
+
   useEffect(() => {
       if(error){
         alert.error(error);
       }
 
-    dispatch(getProducts(currentPage));
+    dispatch(getProducts(keyword, currentPage));
 
-  }, [dispatch,alert, currentPage, error]);
+  }, [dispatch,alert, keyword, currentPage, error]);
 
   function setCurrentPageNo(pageNumber){
     setCurrentPage(pageNumber)
