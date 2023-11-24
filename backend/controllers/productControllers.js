@@ -5,6 +5,8 @@ const ErrorHandler = require('../utils/errorHandler');
 const APIFeatures = require('./../utils/apiFeatures');
 //create new product    =>     /api/v1/product/new
 
+// const cloudinary = require('cloudinary')
+
 
 exports.newProduct = async(req, res, next) => {
 

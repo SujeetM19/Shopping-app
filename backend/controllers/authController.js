@@ -3,18 +3,31 @@ const sendToken = require('../utils/jwtToken');
 const ErrorHandler = require('../utils/errorHandler');
 const sendEmail = require('../utils/sendEmail')
 const crypto = require('crypto');
+const cloudinary = require('cloudinary')
 
 exports.registerUser = async(req, res, next) => {
+
     const {name, email, password} = req.body; 
+
+    // console.log("Avatar" + avatar);
+
+
+    // const result = await cloudinary.v2.uploader.upload(avatar, {
+    //     folder:'Avatars',
+    //     width:150,
+    //     crop: 'scale'
+    // })
+
+    // const {name, email, password, avatar} = req.body; 
 
     const user = await User.create({
         name,
         email, 
         password,
-        avatar: {
-            public_id: 'drbikasm1/image/upload/v1698000157',
-            url: 'https://res.cloudinary.com/drbikasm1/image/upload/v1698000157/pic_bcktdy.jpg'
-        }
+        // avatar: {
+        //     public_id: result.public_id,
+        //     url: result.secure_url
+        // }
     })
 
     sendToken(user, 200, res)

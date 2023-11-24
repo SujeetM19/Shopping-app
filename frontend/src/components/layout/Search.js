@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Search = () => {
-  const [keyword, setKeyword] = useState('');
+const Search = ({ keyword: initialKeyword }) => {
+  const [keyword, setKeyword] = useState(initialKeyword || '');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setKeyword(initialKeyword || '');
+  }, [initialKeyword]);
 
   const searchHandler = (e) => {
     e.preventDefault();
@@ -13,7 +17,7 @@ const Search = () => {
     } else {
       navigate('/');
     }
-  }
+  };
 
   return (
     <form onSubmit={searchHandler}>
